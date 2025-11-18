@@ -1,5 +1,6 @@
 package com.desafio_itau_backend.service;
 
+import com.desafio_itau_backend.dto.TransactionRequestDTO;
 import com.desafio_itau_backend.model.Transaction;
 import com.desafio_itau_backend.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,21 @@ public class TransactionService {
 
     public List<Transaction> buscarTodas(){
         return transactionRepository.findAll();
+    }
+
+    public Transaction atualizar(Long id,TransactionRequestDTO transactionDTO){
+        Optional<Transaction> transactionId = transactionRepository.findById(id);
+
+        if (transactionId.isPresent()){
+            Transaction transaction = transactionId.get();
+
+            transaction.setValor(transactionDTO.getValor());
+            transaction.setDataHora(transactionDTO.getDataHora());
+
+            return transactionRepository.save(transaction);
+        }else {
+            throw new RuntimeException("Transação não encontrada.");
+        }
+
     }
 }
