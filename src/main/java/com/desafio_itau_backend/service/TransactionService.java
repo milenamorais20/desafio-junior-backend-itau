@@ -19,5 +19,16 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
+    public Transaction buscarPorId(Long id){
+        Optional<Transaction> transactionId = transactionRepository.findById(id);
+        if (transactionId.isPresent()){
+            return transactionId.get();
+        }else {
+            throw new RuntimeException("Transação não encontrada.");
+        }
+    }
 
+    public List<Transaction> buscarTodas(){
+        return transactionRepository.findAll();
+    }
 }
