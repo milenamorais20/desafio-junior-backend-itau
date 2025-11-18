@@ -33,4 +33,10 @@ public class TransactionController {
     private List<Transaction> buscarTodas(){
         return transactionService.buscarTodas();
     }
+
+    @PutMapping("/transaction/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    private Transaction atualizar(@PathVariable Long id,@RequestBody TransactionRequestDTO transactionDTO){
+        return transactionService.atualizar(id, transactionDTO);
+    }
 }
