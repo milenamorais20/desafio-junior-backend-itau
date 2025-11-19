@@ -48,4 +48,13 @@ public class TransactionService {
         }
 
     }
+
+    public void deletar(Long id){
+        Optional<Transaction> transaction = transactionRepository.findById(id);
+        if (transaction.isPresent()){
+            transactionRepository.delete(transaction.get());
+        }else {
+            throw new RuntimeException("Transação não encontrada.");
+        }
+    }
 }
