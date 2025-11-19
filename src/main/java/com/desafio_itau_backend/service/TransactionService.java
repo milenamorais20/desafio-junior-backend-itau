@@ -5,6 +5,8 @@ import com.desafio_itau_backend.model.Transaction;
 import com.desafio_itau_backend.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
@@ -56,5 +58,14 @@ public class TransactionService {
         }else {
             throw new RuntimeException("Transação não encontrada.");
         }
+    }
+
+    public DoubleSummaryStatistics getStatics(){
+        OffsetDateTime now = OffsetDateTime.now();
+        return transactions.stream()
+                .filter(t -> t.getDataHora().isAfter(now.minusSeconds(60)))
+                .mapToDouble(Transaction::getValor)
+                .summaryStatistics();
+
     }
 }
