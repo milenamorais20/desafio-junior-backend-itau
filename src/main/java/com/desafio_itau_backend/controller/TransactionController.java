@@ -39,4 +39,10 @@ public class TransactionController {
     private Transaction atualizar(@PathVariable Long id,@RequestBody TransactionRequestDTO transactionDTO){
         return transactionService.atualizar(id, transactionDTO);
     }
+
+    @DeleteMapping("/transaction/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    private void deletar(@PathVariable Long id){
+        transactionService.deletar(id);
+    }
 }
